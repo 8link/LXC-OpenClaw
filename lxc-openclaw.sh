@@ -92,7 +92,7 @@ KEYFILE="/tmp/openclaw-$ID-key.pub"
 printf '%s\n' "$KEY" > "$KEYFILE"
 chmod 600 "$KEYFILE"
 
-pct create $ID local:vztmpl/$TEMPLATE \
+pct create $ID $STORAGE:vztmpl/$TEMPLATE \
   --hostname openclaw-$BOT_NAME \
   --password "$PW" \
   --ssh-public-keys "$KEYFILE" \
