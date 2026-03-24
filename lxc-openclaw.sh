@@ -13,6 +13,7 @@ source "$CONFIG_FILE"
 # ── Validate required variables ───────────────────────────────────────────────
 # Optional: OPENCLAW_VERSION (empty = install latest), GROUP_ID (empty = skip in openclaw config)
 required_vars=(
+    STORAGE
     debian_ver
     KEY
     BOT_NAME
