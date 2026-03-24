@@ -10,10 +10,10 @@ fi
 
 source "$CONFIG_FILE"
 
-# ── Validate all required variables ───────────────────────────────────────────
+# ── Validate required variables ───────────────────────────────────────────────
+# Optional: OPENCLAW_VERSION (empty = install latest), GROUP_ID (empty = skip in openclaw config)
 required_vars=(
     debian_ver
-    OPENCLAW_VERSION
     KEY
     BOT_NAME
     OPENCLAW_GATEWAY_TOKEN
@@ -23,7 +23,6 @@ required_vars=(
     MY_CHAT_ID
     MODEL
     JSON_PATH
-    GROUP_ID
 )
 
 missing=()
@@ -42,8 +41,17 @@ if [[ ${#missing[@]} -gt 0 ]]; then
     exit 1
 fi
 
-# ── Script logic below ───────────────────────────────────────────────────
-echo "All variables loaded successfully."
+# ── Resolve optional variables ────────────────────────────────────────────────
+if [[ -z "$OPENCLAW_VERSION" ]]; then
+    echo "OPENCLAW_VERSION not set — latest will be installed."
+fi
+
+if [[ -z "$GROUP_ID" ]]; then
+    echo "GROUP_ID not set — skipping in openclaw config."
+fi
+
+# ── Your script logic below ───────────────────────────────────────────────────
+echo "All required variables loaded successfully."
 
 
 pveam update
@@ -166,3 +174,4 @@ pct exec $ID -- bash -lc '
 
   openclaw message send -t "$MY_CHAT_ID" -m "$MSG"
   '
+
